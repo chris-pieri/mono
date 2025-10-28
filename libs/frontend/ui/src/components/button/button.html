@@ -1,0 +1,10 @@
+<button
+  [ngClass]="variantCssClass()"
+  [ngClass]="disabled() ? 'btn-disabled': ''"
+  class="btn"
+  (click)="handleClick()"
+>
+  <ng-content select="icon-left" />
+  <ng-content />
+  <ng-content select="icon-right" />
+</button>
