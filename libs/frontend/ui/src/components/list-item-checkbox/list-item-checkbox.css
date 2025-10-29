@@ -1,5 +1,5 @@
 .list-item:hover {
-  background-color: lightgrey;
+  background-color: var(--color-base-200);
   cursor: pointer;
 }
 

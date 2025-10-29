@@ -7,8 +7,8 @@ import {
   Overlay,
   Card,
   List,
-  ListItem,
   ListItemCheckbox,
+  ThemeSwitcher,
 } from '@recipes/ui';
 
 @Component({
@@ -20,8 +20,8 @@ import {
     Overlay,
     Card,
     List,
-    ListItem,
     ListItemCheckbox,
+    ThemeSwitcher,
   ],
   template: `
     <lib-overlay [(open)]="isOverlayOpen" />
@@ -37,6 +37,7 @@ import {
           Add a Recipe
         </lib-button>
       </div>
+
       <div main-body class="flex flex-wrap gap-4 p-4">
         <lib-card title="Sample Recipe" description="This is a sample recipe">
           <img
@@ -61,9 +62,11 @@ import {
           />
         </lib-card>
       </div>
+
       <div right-sidebar-header>
         <lib-button (clicked)="toggleRightSidebar()">List</lib-button>
       </div>
+
       <div right-sidebar-body>
         <lib-list title="Staples">
           <lib-list-item-checkbox title="Eggs" description="12x">
@@ -74,6 +77,10 @@ import {
           ></lib-list-item-checkbox>
         </lib-list>
       </div>
+
+      <ng-container settings-header>
+        <lib-theme-switcher />
+      </ng-container>
     </lib-golden-layout>
   `,
   styles: [],

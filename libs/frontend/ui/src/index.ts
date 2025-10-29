@@ -6,3 +6,4 @@ export * from './components/card/card';
 export * from './components/list/list';
 export * from './components/list-item/list-item';
 export * from './components/list-item-checkbox/list-item-checkbox';
+export * from './components/theme-switcher/theme-switcher';
