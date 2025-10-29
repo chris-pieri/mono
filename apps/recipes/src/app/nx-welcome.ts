@@ -1,17 +1,37 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Button } from '@recipes/ui';
+import { Button, GoldenLayout, GoldenLayoutService } from '@recipes/ui';
 
 @Component({
   selector: 'app-nx-welcome',
-  imports: [CommonModule, Button],
+  imports: [CommonModule, Button, GoldenLayout],
   template: `
-    <lib-button variant="primary">
-      <i ngProjectAs="icon-left">✅</i>
-      Hello
-    </lib-button>
+    <lib-golden-layout>
+      <div main-header class="flex justify-between w-full">
+        <lib-button variant="ghost">
+          <i icon-left>+</i>
+          Recipes
+        </lib-button>
+
+        <lib-button variant="outline">
+          <i icon-left>+</i>
+          Add a Recipe
+        </lib-button>
+      </div>
+      <div right-sidebar-header>
+        <lib-button (clicked)="toggleRightSidebar()">List</lib-button>
+      </div>
+      <div right-sidebar-body>
+        <p>Right Sidebar Content</p>
+      </div>
+    </lib-golden-layout>
   `,
   styles: [],
   encapsulation: ViewEncapsulation.None,
 })
-export class NxWelcome {}
+export class NxWelcome {
+  layoutService = inject(GoldenLayoutService);
+  toggleRightSidebar() {
+    this.layoutService.toggleRightSidebar();
+  }
+}

@@ -8,12 +8,13 @@ import { NgClass } from '@angular/common';
   styleUrl: './button.css',
 })
 export class Button {
-  variant = input<'primary' | 'secondary' | 'tertiary'>('primary');
+  color = input<'primary' | 'secondary' | 'tertiary'>('primary');
+  variant = input<'soft' | 'outline' | 'dash' | 'ghost'>();
   disabled = input<boolean>(false);
   clicked = output<void>();
 
-  protected variantCssClass = computed(() => {
-    switch (this.variant()) {
+  private colorCssClass = computed(() => {
+    switch (this.color()) {
       case 'primary':
         return 'btn-primary';
       case 'secondary':
@@ -23,6 +24,33 @@ export class Button {
       default:
         return 'btn-primary';
     }
+  });
+
+  private variantCssClass = computed(() => {
+    switch (this.variant()) {
+      case 'soft':
+        return 'btn-soft';
+      case 'outline':
+        return 'btn-outline';
+      case 'dash':
+        return 'btn-dash';
+      case 'ghost':
+        return 'btn-ghost';
+      default:
+        return '';
+    }
+  });
+
+  private disabledCssClass = computed(() => {
+    return this.disabled() ? 'btn-disabled' : '';
+  });
+
+  protected cssClasses = computed(() => {
+    return [
+      this.colorCssClass(),
+      this.variantCssClass(),
+      this.disabledCssClass(),
+    ];
   });
 
   protected handleClick() {

@@ -1,0 +1,18 @@
+<div
+  class="container"
+  [ngClass]="layoutService.isRightSideOpen() ? '' : 'closed-right'"
+>
+  <div class="main-header header">
+    <ng-content select="[main-header]" />
+  </div>
+  <div class="main-body">
+    <ng-content select="[main-body]" />
+  </div>
+  <div class="right-sidebar-header header">
+    <ng-content select="[right-sidebar-header]" />
+  </div>
+
+  <div class="right-sidebar-body">
+    <ng-content select="[right-sidebar-body]" />
+  </div>
+</div>
