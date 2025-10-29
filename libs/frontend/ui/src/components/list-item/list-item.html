@@ -1,0 +1,18 @@
+<li class="list-row">
+  <div>
+    <ng-content select="[slot-left]" />
+  </div>
+  <div>
+    <div>
+      {{ title() }}
+      <ng-content select="[list-item-title]" />
+    </div>
+    <div class="text-xs uppercase font-semibold opacity-60">
+      {{ description() }}
+      <ng-content select="[list-item-description]" />
+    </div>
+  </div>
+  <div>
+    <ng-content select="[slot-right]" />
+  </div>
+</li>

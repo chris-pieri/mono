@@ -22,7 +22,7 @@
 
 .main-header {
   grid-area: main-header;
-  border-bottom: var(--border);
+  border-bottom: var(--tissi-border);
 }
 
 .main-body {
@@ -32,14 +32,14 @@
 
 .right-sidebar-header {
   grid-area: right-sidebar-header;
-  border-bottom: var(--border);
-  border-left: var(--border);
+  border-bottom: var(--tissi-border);
+  border-left: var(--tissi-border);
 }
 
 .right-sidebar-body {
   grid-area: right-sidebar-body;
   padding: 32px;
-  border-left: var(--border);
+  border-left: var(--tissi-border);
 }
 
 .header {

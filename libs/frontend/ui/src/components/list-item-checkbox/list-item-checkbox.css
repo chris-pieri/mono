@@ -1,0 +1,10 @@
+.list-item:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+.selected {
+  color: var(--tissi-color-text-muted);
+  text-decoration-line: line-through;
+  text-decoration-color: var(--tissi-color-text-muted);
+}

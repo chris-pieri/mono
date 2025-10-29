@@ -3,3 +3,6 @@ export * from './services/golden-layout.service';
 export * from './components/golden-layout/golden-layout';
 export * from './components/overlay/overlay';
 export * from './components/card/card';
+export * from './components/list/list';
+export * from './components/list-item/list-item';
+export * from './components/list-item-checkbox/list-item-checkbox';

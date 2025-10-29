@@ -1,12 +1,12 @@
 import { Component, input } from '@angular/core';
 
 @Component({
-  selector: 'lib-card',
+  selector: 'lib-list-item',
   imports: [],
-  templateUrl: './card.html',
-  styleUrl: './card.css',
+  templateUrl: './list-item.html',
+  styleUrl: './list-item.css',
 })
-export class Card {
+export class ListItem {
   title = input<string>();
   description = input<string>();
 }

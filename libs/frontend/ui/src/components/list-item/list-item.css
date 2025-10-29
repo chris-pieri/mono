@@ -1,0 +1,6 @@
+:is(
+    .list > :not(:last-child).list-row,
+    .list > :not(:last-child) .list-row
+  ):after {
+  border-color: var(--tissi-border-color);
+}

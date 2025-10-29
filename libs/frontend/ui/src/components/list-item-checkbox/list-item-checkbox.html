@@ -1,0 +1,14 @@
+<lib-list-item
+  class="list-item"
+  (click)="handleCheckboxChange()"
+  [ngClass]="selected() ? 'selected': ''"
+>
+  <input
+    slot-left
+    type="checkbox"
+    class="checkbox checkbox-primary checkbox-sm"
+    [checked]="selected()"
+  />
+  <ng-container list-item-title>{{title()}}</ng-container>
+  <ng-container list-item-description>{{description()}}</ng-container>
+</lib-list-item>
