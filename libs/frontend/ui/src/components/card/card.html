@@ -1,0 +1,16 @@
+<div class="card bg-base-100 w-96 shadow-sm">
+  <figure>
+    <ng-content select="[card-image]" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">
+      <ng-content select="[card-title]" />
+    </h2>
+    <p>
+      <ng-content select="[card-description]" />
+    </p>
+    <div class="card-actions justify-end gap-2">
+      <ng-content select="[card-actions]" />
+    </div>
+  </div>
+</div>
