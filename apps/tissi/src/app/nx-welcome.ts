@@ -9,7 +9,7 @@ import {
   List,
   ListItemCheckbox,
   ThemeSwitcher,
-} from '@recipes/ui';
+} from '@chriscorp/ui';
 
 @Component({
   selector: 'app-nx-welcome',

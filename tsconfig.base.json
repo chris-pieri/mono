@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@recipes/ui": ["libs/frontend/ui/src/index.ts"]
+      "@chriscorp/ui": ["libs/frontend/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

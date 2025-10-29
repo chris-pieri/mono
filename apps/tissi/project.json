@@ -1,26 +1,26 @@
 {
-  "name": "recipes",
+  "name": "tissi",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/recipes/src",
+  "sourceRoot": "apps/tissi/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/recipes",
-        "browser": "apps/recipes/src/main.ts",
+        "outputPath": "dist/apps/tissi",
+        "browser": "apps/tissi/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/recipes/tsconfig.app.json",
+        "tsConfig": "apps/tissi/tsconfig.app.json",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/recipes/public"
+            "input": "apps/tissi/public"
           }
         ],
-        "styles": ["apps/recipes/src/styles.css"]
+        "styles": ["apps/tissi/src/styles.css"]
       },
       "configurations": {
         "production": {
@@ -51,10 +51,10 @@
       "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "recipes:build:production"
+          "buildTarget": "tissi:build:production"
         },
         "development": {
-          "buildTarget": "recipes:build:development"
+          "buildTarget": "tissi:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -62,7 +62,7 @@
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",
       "options": {
-        "buildTarget": "recipes:build"
+        "buildTarget": "tissi:build"
       }
     },
     "lint": {
@@ -72,8 +72,8 @@
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "recipes:build",
-        "staticFilePath": "dist/apps/recipes/browser",
+        "buildTarget": "tissi:build",
+        "staticFilePath": "dist/apps/tissi/browser",
         "spa": true
       }
     }

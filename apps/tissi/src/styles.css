@@ -1,0 +1,16 @@
+@import 'tailwindcss';
+@plugin "daisyui" {
+  themes: emerald --default, dim --prefersdark;
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--color-base-100);
+}
+
+:root {
+  --tissi-border-color: var(--color-base-300);
+  --tissi-border: 2px solid var(--tissi-border-color);
+  --tissi-color-text-muted: #9fa5ad;
+}
