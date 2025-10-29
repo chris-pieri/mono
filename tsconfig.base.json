@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@chriscorp/ui": ["libs/frontend/ui/src/index.ts"]
+      "@mono/ui": ["libs/frontend/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

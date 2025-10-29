@@ -9,7 +9,7 @@ import {
   List,
   ListItemCheckbox,
   ThemeSwitcher,
-} from '@chriscorp/ui';
+} from '@mono/ui';
 
 @Component({
   selector: 'app-nx-welcome',
