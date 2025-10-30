@@ -1,8 +1,4 @@
-<button
-  [ngClass]="cssClasses()"
-  class="btn lib-button"
-  (click)="handleClick()"
->
+<button [ngClass]="cssClasses()" class="btn lib-button" (click)="handleClick()">
   <ng-content select="[icon-left]" />
   <ng-content />
   <ng-content select="[icon-right]" />

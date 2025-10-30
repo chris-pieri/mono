@@ -3,12 +3,8 @@
     <ng-content select="[card-image]" />
   </figure>
   <div class="card-body">
-    <h2 class="card-title">
-      {{ title() }}
-    </h2>
-    <p>
-      {{ description() }}
-    </p>
+    <h2 class="card-title">{{ title() }}</h2>
+    <p>{{ description() }}</p>
     <div class="card-actions justify-end gap-2">
       <ng-content select="[card-actions]" />
     </div>

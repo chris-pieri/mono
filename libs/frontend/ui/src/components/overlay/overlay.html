@@ -4,7 +4,12 @@
     <div class="modal-action">
       <form method="dialog">
         <!-- if there is a button in form, it will close the modal -->
-        <lib-button variant="outline" color="secondary" (clicked)="handleClose()">Close</lib-button>
+        <lib-button
+          variant="outline"
+          color="secondary"
+          (clicked)="handleClose()"
+          >Close</lib-button
+        >
         <lib-button color="primary" (clicked)="handleClose()">Save</lib-button>
       </form>
     </div>
