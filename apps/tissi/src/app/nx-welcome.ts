@@ -9,6 +9,7 @@ import {
   List,
   ListItemCheckbox,
   ThemeSwitcher,
+  Input,
 } from '@mono/ui';
 
 @Component({
@@ -22,9 +23,17 @@ import {
     List,
     ListItemCheckbox,
     ThemeSwitcher,
+    Input,
   ],
   template: `
-    <lib-overlay [(open)]="isOverlayOpen" />
+    <lib-overlay [(open)]="isOverlayOpen">
+      <lib-input label="Recipe Name"></lib-input>
+      <div class="flex w-full gap-4">
+        <lib-input class="flex-grow" label="Ingredient"></lib-input>
+        <lib-input class="basis-1/5" label="Quantity"></lib-input>
+        <lib-input class="basis-1/5" label="Unit"></lib-input>
+      </div>
+    </lib-overlay>
     <lib-golden-layout>
       <div main-header class="flex justify-between w-full">
         <lib-button variant="ghost">
