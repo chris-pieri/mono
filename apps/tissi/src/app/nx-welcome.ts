@@ -9,8 +9,8 @@ import {
   List,
   ListItemCheckbox,
   ThemeSwitcher,
-  Input,
 } from '@mono/ui';
+import { AddRecipe } from '@mono/tissi';
 
 @Component({
   selector: 'app-nx-welcome',
@@ -23,16 +23,11 @@ import {
     List,
     ListItemCheckbox,
     ThemeSwitcher,
-    Input,
+    AddRecipe,
   ],
   template: `
     <lib-overlay [(open)]="isOverlayOpen">
-      <lib-input label="Recipe Name"></lib-input>
-      <div class="flex w-full gap-4">
-        <lib-input class="flex-grow" label="Ingredient"></lib-input>
-        <lib-input class="basis-1/5" label="Quantity"></lib-input>
-        <lib-input class="basis-1/5" label="Unit"></lib-input>
-      </div>
+      <lib-add-recipe></lib-add-recipe>
     </lib-overlay>
     <lib-golden-layout>
       <div main-header class="flex justify-between w-full">

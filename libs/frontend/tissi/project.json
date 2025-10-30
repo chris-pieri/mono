@@ -1,7 +1,7 @@
 {
-  "name": "ui-lib",
+  "name": "tissi-lib",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/frontend/ui/src",
+  "sourceRoot": "libs/frontend/tissi/src",
   "prefix": "lib",
   "projectType": "library",
   "tags": [],

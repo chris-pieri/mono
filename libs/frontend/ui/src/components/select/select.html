@@ -1,0 +1,9 @@
+<fieldset class="fieldset">
+  <p class="fieldset-legend">{{ label() }}</p>
+  <select class="select">
+    @for (option of options(); track $index) {
+    <option>{{ option }}</option>
+    }
+  </select>
+  <span class="label">{{ notes() }}</span>
+</fieldset>

@@ -8,3 +8,4 @@ export * from './components/list-item/list-item';
 export * from './components/list-item-checkbox/list-item-checkbox';
 export * from './components/theme-switcher/theme-switcher';
 export * from './components/input/input';
+export * from './components/select/select';
