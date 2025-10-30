@@ -1,5 +1,11 @@
 {
-    "cSpell.words": [
-        "tissi"
-    ]
+  "cSpell.words": ["tissi"],
+  "files.associations": {
+    "apps/**/*.html": "html",
+    "libs/**/*.html": "html"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true
 }

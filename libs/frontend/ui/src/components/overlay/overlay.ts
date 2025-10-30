@@ -1,4 +1,11 @@
-import { Component, effect, ElementRef, model, viewChild } from '@angular/core';
+import {
+  Component,
+  effect,
+  ElementRef,
+  model,
+  output,
+  viewChild,
+} from '@angular/core';
 import { Button } from '../button/button';
 
 @Component({
@@ -9,6 +16,7 @@ import { Button } from '../button/button';
 })
 export class Overlay {
   open = model(false);
+  closed = output<void>();
   private dialogElement = viewChild<ElementRef<HTMLDialogElement>>('dialog');
 
   constructor() {
@@ -22,6 +30,7 @@ export class Overlay {
   }
 
   handleClose() {
+    this.closed.emit();
     this.open.set(false);
   }
 }

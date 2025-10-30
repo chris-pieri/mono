@@ -4,7 +4,6 @@ import {
   Button,
   GoldenLayout,
   GoldenLayoutService,
-  Overlay,
   Card,
   List,
   ListItemCheckbox,
@@ -18,7 +17,6 @@ import { AddRecipe } from '@mono/tissi';
     CommonModule,
     Button,
     GoldenLayout,
-    Overlay,
     Card,
     List,
     ListItemCheckbox,
@@ -26,9 +24,7 @@ import { AddRecipe } from '@mono/tissi';
     AddRecipe,
   ],
   template: `
-    <lib-overlay [(open)]="isOverlayOpen">
-      <lib-add-recipe></lib-add-recipe>
-    </lib-overlay>
+    <lib-add-recipe [(isOverlayOpen)]="isOverlayOpen"></lib-add-recipe>
     <lib-golden-layout>
       <div main-header class="flex justify-between w-full">
         <lib-button variant="ghost">
