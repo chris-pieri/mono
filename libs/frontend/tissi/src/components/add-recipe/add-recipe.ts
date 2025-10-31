@@ -1,4 +1,4 @@
-import { Component, inject, model, OnInit } from '@angular/core';
+import { Component, inject, model, OnInit, signal } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -23,10 +23,13 @@ export class AddRecipe implements OnInit {
     'tbsp',
     'pieces',
   ];
+  private ingredientId = signal(0);
   private formBuilder = inject(FormBuilder);
 
   private createIngredientFormGroup() {
+    this.ingredientId.update((id) => id + 1);
     return this.formBuilder.group({
+      id: new FormControl(this.ingredientId()),
       ingredientName: new FormControl(''),
       ingredientQuantity: new FormControl(1),
       ingredientUnit: new FormControl('grams'),
@@ -62,6 +65,14 @@ export class AddRecipe implements OnInit {
     // this.recipeForm.controls.ingredientName.valueChanges.subscribe((value) => {
     //   console.log('Ingredient Name:', value);
     // });
+  }
+
+  removeIngredient(index: number) {
+    this.ingredients.removeAt(index);
+  }
+
+  submit() {
+    console.log('Recipe Submitted:', this.recipeForm.value);
   }
 
   resetForm() {

@@ -1,5 +1,5 @@
 <lib-overlay [(open)]="isOverlayOpen" (closed)="resetForm()">
-  <form [formGroup]="recipeForm" overlay-body>
+  <form [formGroup]="recipeForm" overlay-body >
     <lib-input
       class="w-full"
       label="Recipe Name"
@@ -7,8 +7,8 @@
     ></lib-input>
 
     <div formArrayName="ingredients">
-      @for (ingredient of ingredients.controls; track $index; let i = $index) {
-      <div [formGroupName]="i" class="flex w-full gap-4">
+      @for (ingredient of ingredients.controls; track ingredient.get('id'); let i = $index) {
+      <div [formGroupName]="i" class="flex w-full gap-4 align-bottom">
         <lib-input
           class="flex-grow"
           label="Ingredient"
@@ -26,17 +26,21 @@
           formControlName="ingredientUnit"
           [options]="unitOptions"
         ></lib-select>
+        <fieldset class="fieldset self-end">
+
+        <lib-button variant="outline" color="secondary" (clicked)="removeIngredient(i)"  class="remove-button"
+          >x</lib-button>
+        </fieldset>
       </div>
       }
     </div>
-
-    <lib-button variant="outline" color="secondary" (clicked)="addIngredient()"
-      ><ng-container icon-left><i>+</i></ng-container
-      >Add Ingredient</lib-button
-    >
   </form>
+  <lib-button variant="outline" color="secondary" (clicked)="addIngredient()" class="align-end"
+    ><ng-container icon-left><i>+</i></ng-container
+    >Add Ingredient</lib-button
+  >
 
   <ng-container overlay-action>
-    <lib-button color="primary"> Save</lib-button>
+    <lib-button color="primary" (clicked)="submit()"> Save</lib-button>
   </ng-container>
 </lib-overlay>
