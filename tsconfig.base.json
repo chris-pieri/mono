@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@mono/ui": ["libs/frontend/ui/src/index.ts"],
-      "@mono/tissi": ["libs/frontend/tissi/src/index.ts"]
+      "@mono/tissi": ["libs/frontend/tissi/src/index.ts"],
+      "@mono/drizzle": ["libs/backend/tissi/drizzle/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

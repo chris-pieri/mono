@@ -3,3 +3,6 @@ start-db:
 
 stop-db:
 	docker stop drizzle-postgres && docker rm drizzle-postgres
+
+tissi-generate-migration:
+	npx drizzle-kit generate:migration --config libs/backend/tissi/drizzle/drizzle.config.ts
