@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:18
+    container_name: mono_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql
+    ports:
+      - '5432:5432'
+
+  drizzle-gateway:
+    image: ghcr.io/drizzle-team/gateway:latest
+    container_name: drizzle_gateway
+    restart: unless-stopped
+    environment:
+      DRIZZLE_DATABASE_URL: postgres://postgres:mypassword@db:5432/postgres
+    volumes:
+      - drizzle_data:/app
+    ports:
+      - '4983:4983'
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
+  drizzle_data:
