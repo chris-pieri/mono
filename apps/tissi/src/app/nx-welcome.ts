@@ -8,8 +8,8 @@ import {
   List,
   ListItemCheckbox,
   ThemeSwitcher,
-} from '@mono/ui';
-import { AddRecipe } from '@mono/tissi';
+} from '@mono/frontend/ui';
+import { AddRecipe } from '@mono/frontend/tissi';
 
 @Component({
   selector: 'app-nx-welcome',

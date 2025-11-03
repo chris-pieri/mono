@@ -15,9 +15,16 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@mono/ui": ["libs/frontend/ui/src/index.ts"],
-      "@mono/tissi": ["libs/frontend/tissi/src/index.ts"],
-      "@mono/drizzle": ["libs/backend/tissi/drizzle/src/index.ts"]
+      "@mono/frontend/ui": ["libs/frontend/ui/src/index.ts"],
+      "@mono/frontend/tissi": ["libs/frontend/tissi/src/index.ts"],
+      "@mono/backend/tissi/drizzle": [
+        "libs/backend/tissi/drizzle/src/index.ts"
+      ],
+      "@mono/backend/tissi/recipes": [
+        "libs/backend/tissi/recipes/src/index.ts"
+      ],
+      "@mono/types/tissi": ["libs/types/tissi/src/index.ts"],
+      "@mono/backend/database": ["libs/backend/database/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

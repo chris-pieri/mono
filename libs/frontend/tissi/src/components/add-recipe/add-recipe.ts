@@ -5,7 +5,7 @@ import {
   FormControl,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Input, Select, Button, Overlay } from '@mono/ui';
+import { Input, Select, Button, Overlay } from '@mono/frontend/ui';
 
 @Component({
   selector: 'lib-add-recipe',
