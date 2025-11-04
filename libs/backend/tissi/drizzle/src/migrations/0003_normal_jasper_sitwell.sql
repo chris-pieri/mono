@@ -1,0 +1,4 @@
+ALTER TABLE "tissi"."recipe_ingredients" ADD CONSTRAINT "recipe_ingredients_recipe_id_recipes_recipe_id_fk" FOREIGN KEY ("recipe_id") REFERENCES "tissi"."recipes"("recipe_id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "tissi"."recipe_ingredients" ADD CONSTRAINT "recipe_ingredients_ingredient_id_ingredients_ingredient_id_fk" FOREIGN KEY ("ingredient_id") REFERENCES "tissi"."ingredients"("ingredient_id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "tissi"."ingredients" ADD CONSTRAINT "ingredients_name_unique" UNIQUE("name");--> statement-breakpoint
+ALTER TABLE "tissi"."recipe_ingredients" ADD CONSTRAINT "ingredient_quantity_check" CHECK ("tissi"."recipe_ingredients"."quantity" >= 0);

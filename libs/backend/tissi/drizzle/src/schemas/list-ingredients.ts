@@ -1,12 +1,10 @@
+import { ingredients } from './ingredients';
 import { tissiSchema } from './schema';
-import { boolean, primaryKey, uuid } from 'drizzle-orm/pg-core';
+import { boolean, uuid } from 'drizzle-orm/pg-core';
 
-export const listIngredients = tissiSchema.table(
-  'list_ingredients',
-  {
-    recipe_id: uuid(),
-    ingredient_id: uuid(),
-    checked: boolean().default(false).notNull(),
-  },
-  (table) => [primaryKey({ columns: [table.recipe_id, table.ingredient_id] })]
-);
+export const listIngredients = tissiSchema.table('list_ingredients', {
+  ingredient_id: uuid()
+    .primaryKey()
+    .references(() => ingredients.ingredient_id),
+  checked: boolean().default(false).notNull(),
+});
