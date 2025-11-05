@@ -61,13 +61,13 @@
     } @else if (list.error()) {
     <p>Failed to load list</p>
     } @else if (list.value().length > 0) {
-    <lib-list title="Staples">
+    <lib-list title="Ingredients">
       @for (listItem of list.value(); track listItem.ingredient_id) {
       <lib-list-item-checkbox
         [title]="listItem.name"
         [selected]="listItem.checked"
         (changed)="toggleListItem(listItem)"
-        description="Placeholder"
+        [description]="listItem.displayUnits"
       />
 
       }
