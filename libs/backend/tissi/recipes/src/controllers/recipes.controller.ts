@@ -41,6 +41,6 @@ export class RecipesController {
 
   @Post('/deselect/:id')
   async deSelectRecipe(@Param('id') id: string) {
-    await this.recipesService.select(id);
+    await this.recipesService.deselect(id);
   }
 }

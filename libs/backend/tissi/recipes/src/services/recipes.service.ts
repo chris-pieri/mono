@@ -140,7 +140,7 @@ export class RecipesService {
   async deselect(id: string) {
     await this.db
       .update(recipes)
-      .set({ selected: true })
+      .set({ selected: false })
       .where(eq(recipes.recipe_id, id));
 
     const selectedRecipes = await this.getSelected();

@@ -1,11 +1,21 @@
-import { Component, inject, model, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  model,
+  OnInit,
+  output,
+  signal,
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
   FormControl,
   ReactiveFormsModule,
+  RequiredValidator,
+  Validators,
 } from '@angular/forms';
 import { Input, Select, Button, Overlay } from '@mono/frontend/ui';
+import { NewRecipe, RecipeIngredient } from '@mono/types/tissi';
 
 @Component({
   selector: 'lib-add-recipe',
@@ -13,8 +23,9 @@ import { Input, Select, Button, Overlay } from '@mono/frontend/ui';
   templateUrl: './add-recipe.html',
   styleUrl: './add-recipe.css',
 })
-export class AddRecipe implements OnInit {
+export class AddRecipe {
   isOverlayOpen = model(false);
+  submitted = output<NewRecipe>();
   protected readonly unitOptions = [
     'grams',
     'ml',
@@ -22,6 +33,7 @@ export class AddRecipe implements OnInit {
     'tsp',
     'tbsp',
     'pieces',
+    'lbs',
   ];
   private ingredientId = signal(0);
   private formBuilder = inject(FormBuilder);
@@ -37,7 +49,7 @@ export class AddRecipe implements OnInit {
   }
 
   recipeForm = this.formBuilder.group({
-    recipeName: new FormControl(''),
+    recipeName: ['', Validators.required],
 
     ingredients: this.formBuilder.array([this.createIngredientFormGroup()]),
   });
@@ -50,29 +62,27 @@ export class AddRecipe implements OnInit {
     this.ingredients.push(this.createIngredientFormGroup());
   }
 
-  ngOnInit(): void {
-    this.recipeForm.controls.recipeName.valueChanges.subscribe((value) => {
-      console.log('Recipe Name:', value);
-    });
-    // this.recipeForm.controls.ingredientUnit.valueChanges.subscribe((value) => {
-    //   console.log('Ingredient Unit:', value);
-    // });
-    // this.recipeForm.controls.ingredientQuantity.valueChanges.subscribe(
-    //   (value) => {
-    //     console.log('Quantity:', value);
-    //   }
-    // );
-    // this.recipeForm.controls.ingredientName.valueChanges.subscribe((value) => {
-    //   console.log('Ingredient Name:', value);
-    // });
-  }
-
   removeIngredient(index: number) {
     this.ingredients.removeAt(index);
   }
 
   submit() {
     console.log('Recipe Submitted:', this.recipeForm.value);
+    const { recipeName, ingredients } = this.recipeForm.value;
+    if (!recipeName || !ingredients) {
+      return;
+    }
+    // Fields could be undefined
+    const mappedIngredients: RecipeIngredient[] = ingredients.map((i) => ({
+      name: i.ingredientName,
+      quantity: i.ingredientQuantity,
+      unit: i.ingredientUnit,
+    })) as RecipeIngredient[];
+    const newRecipe: NewRecipe = {
+      name: recipeName,
+      ingredients: mappedIngredients,
+    };
+    this.submitted.emit(newRecipe);
   }
 
   resetForm() {

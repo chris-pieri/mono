@@ -16,6 +16,12 @@ export class ListService {
 
   // Need to pass selectedRecipes or else there is a circular dependency error
   async calculate(selectedRecipes: Recipe[]) {
+    await this.db.delete(listIngredients);
+    await this.db.delete(listIngredientUnits);
+
+    if (selectedRecipes.length == 0) {
+      return;
+    }
     const ingredients = new Map();
 
     // Insert recipe ingredient into ingredients map
@@ -33,9 +39,6 @@ export class ListService {
       }
     });
 
-    await this.db.delete(listIngredients);
-    await this.db.delete(listIngredientUnits);
-
     await this.db
       .insert(listIngredients)
       .values(
@@ -46,7 +49,6 @@ export class ListService {
     const ingredientUnits = Array.from(ingredients.values()).flat();
 
     await this.db.insert(listIngredientUnits).values(ingredientUnits);
-    // Delete all list ingredients that don't exists anymore
   }
 
   get() {

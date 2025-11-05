@@ -4,9 +4,10 @@ import { RecipesService } from './services/recipes.service';
 import { IngredientsService } from './services/ingredients.service';
 import { ListService } from './services/list.service';
 import { ListController } from './controllers/list.controller';
+import { IngredientsController } from './controllers/ingredients.controller';
 
 @Module({
-  controllers: [RecipesController, ListController],
+  controllers: [RecipesController, ListController, IngredientsController],
   providers: [RecipesService, IngredientsService, ListService],
   exports: [],
 })

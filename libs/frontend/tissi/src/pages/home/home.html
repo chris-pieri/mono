@@ -1,0 +1,83 @@
+<lib-add-recipe
+  (submitted)="createRecipe($event)"
+  [(isOverlayOpen)]="isOverlayOpen"
+></lib-add-recipe>
+<lib-golden-layout>
+  <div main-header class="flex justify-between w-full">
+    <lib-button variant="ghost">
+      <i icon-left>+</i>
+      Recipes
+    </lib-button>
+
+    <lib-button variant="outline" (clicked)="openOverlay()">
+      <i icon-left>+</i>
+      Add a Recipe
+    </lib-button>
+  </div>
+
+  <div main-body class="flex flex-wrap gap-4 p-4">
+    @if (recipes.isLoading()) {
+    <p>Loading Recipes...</p>
+    } @else if (recipes.error()) {
+    <p>Failed to load Recipes</p>
+    } @else{ @for (recipe of recipes.value(); track recipe.recipe_id) {
+    <lib-card [title]="recipe.name">
+      <img
+        card-image
+        src="https://www.shutterstock.com/image-photo/fried-salmon-steak-cooked-green-600nw-2489026949.jpg"
+        alt="Shoes"
+      />
+      <ng-container card-actions>
+        <lib-button color="secondary" variant="soft"> View Recipe </lib-button>
+        @if (recipe.selected) {
+        <lib-button
+          color="tertiary"
+          variant="outline"
+          (clicked)="deselectRecipe(recipe.recipe_id)"
+          >Remove from List</lib-button
+        >
+        } @else {
+        <lib-button
+          color="primary"
+          variant="outline"
+          (clicked)="selectRecipe(recipe.recipe_id)"
+          >Add to List</lib-button
+        >
+        }
+      </ng-container>
+    </lib-card>
+    } @empty {
+    <p>Add your first recipe</p>
+    } }
+  </div>
+
+  <div right-sidebar-header>
+    <lib-button (clicked)="toggleRightSidebar()">List</lib-button>
+  </div>
+
+  <div right-sidebar-body>
+    @if (list.isLoading()) {
+    <p>Loading list...</p>
+    } @else if (list.error()) {
+    <p>Failed to load list</p>
+    } @else if (list.value().length > 0) {
+    <lib-list title="Staples">
+      @for (listItem of list.value(); track listItem.ingredient_id) {
+      <lib-list-item-checkbox
+        [title]="listItem.name"
+        [selected]="listItem.checked"
+        (changed)="toggleListItem(listItem)"
+        description="Placeholder"
+      />
+
+      }
+    </lib-list>
+    } @else {
+    <p>You have no recipes selected</p>
+    }
+  </div>
+
+  <ng-container settings-header>
+    <lib-theme-switcher />
+  </ng-container>
+</lib-golden-layout>
