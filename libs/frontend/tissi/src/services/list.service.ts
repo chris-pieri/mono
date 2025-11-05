@@ -1,6 +1,6 @@
 import { HttpClient, httpResource } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, share, throwError } from 'rxjs';
 
 // Move to types directory
 export interface ListItem {
@@ -17,23 +17,23 @@ export interface ListItem {
 }
 
 function parseList(list: ListItem[]): ListItem[] {
-    // add displayUnits to list
-    const units = new Map();
-    for (const item of list) {
-      for (const { unit, quantity } of item.units) {
-        const currentValue = units.get(unit) ?? 0;
-        units.set(unit, currentValue + quantity);
-      }
-
-      item.displayUnits = Array.from(units.entries())
-        .map((u) => u.reverse().join(' '))
-        .flat()
-        .join(' | ');
-
-        units.clear();
+  // add displayUnits to list
+  const units = new Map();
+  for (const item of list) {
+    for (const { unit, quantity } of item.units) {
+      const currentValue = units.get(unit) ?? 0;
+      units.set(unit, currentValue + quantity);
     }
-    return list;
+
+    item.displayUnits = Array.from(units.entries())
+      .map((u) => u.reverse().join(' '))
+      .flat()
+      .join(' | ');
+
+    units.clear();
   }
+  return list;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -47,6 +47,43 @@ export class ListService {
       return parseList(value);
     },
   });
+
+  private listSse = new Observable((observer) => {
+    const url = 'http://localhost:3000/api/list/sse';
+    const es = new EventSource(url);
+
+    es.onmessage = ({ data }) => {
+      observer.next(data);
+    };
+
+    es.onerror = (err) => {
+      observer.error(err);
+    };
+
+    return () => {
+      es.close();
+    };
+  }).pipe(share());
+
+  private startSse() {
+    const subscribe = () => {
+      this.listSse.subscribe({
+        next: (data) => {
+          console.log('data from sse', data);
+          this.list.reload();
+        },
+        error: (err) => {
+          console.log('SSE Connection Closed - Reconnecting in 3 seconds');
+          setTimeout(() => subscribe(), 3000);
+        },
+      });
+    };
+    subscribe();
+  }
+
+  constructor() {
+    this.startSse();
+  }
 
   private toggleCheck(id: string) {
     this.list.update((items) => {
@@ -71,7 +108,7 @@ export class ListService {
   uncheck(id: string): Observable<void> {
     this.toggleCheck(id);
     return this.httpClient
-      .post<void>(`http://localhost:3000/api/list/check/${id}`, {})
+      .post<void>(`http://localhost:3000/api/list/uncheck/${id}`, {})
       .pipe(
         catchError((err) => {
           this.toggleCheck(id);

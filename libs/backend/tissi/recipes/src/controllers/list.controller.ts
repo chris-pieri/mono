@@ -1,5 +1,13 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  MessageEvent,
+  Param,
+  Post,
+  Sse,
+} from '@nestjs/common';
 import { ListService } from '../services/list.service';
+import { map, Observable } from 'rxjs';
 
 @Controller('list')
 export class ListController {
@@ -12,11 +20,18 @@ export class ListController {
 
   @Post('/check/:id')
   check(@Param('id') id: string) {
-    return this.listService.check(id);
+    this.listService.check(id);
   }
 
   @Post('/uncheck/:id')
   uncheck(@Param('id') id: string) {
-    return this.listService.uncheck(id);
+    this.listService.uncheck(id);
+  }
+
+  @Sse('sse')
+  sse(): Observable<MessageEvent> {
+    return this.listService.reloadListEvent
+      .asObservable()
+      .pipe(map((_) => ({ data: 'RELOAD_LIST' })));
   }
 }

@@ -9,10 +9,12 @@ import {
 import { Inject, Injectable } from '@nestjs/common';
 import { eq, sql } from 'drizzle-orm';
 import { Recipe } from '@mono/types/tissi';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class ListService {
   constructor(@Inject(DB) private db: TissiDB) {}
+  reloadListEvent = new Subject<void>();
 
   // Need to pass selectedRecipes or else there is a circular dependency error
   async calculate(selectedRecipes: Recipe[]) {
@@ -49,6 +51,7 @@ export class ListService {
     const ingredientUnits = Array.from(ingredients.values()).flat();
 
     await this.db.insert(listIngredientUnits).values(ingredientUnits);
+    this.reloadListEvent.next();
   }
 
   get() {
@@ -79,17 +82,20 @@ export class ListService {
       .groupBy(listIngredients.ingredient_id, ingredients.name);
   }
 
-  check(id: string) {
-    return this.db
+  async check(id: string) {
+    await this.db
       .update(listIngredients)
       .set({ checked: true })
       .where(eq(listIngredients.ingredient_id, id));
+
+    this.reloadListEvent.next();
   }
 
-  uncheck(id: string) {
-    return this.db
+  async uncheck(id: string) {
+    await this.db
       .update(listIngredients)
       .set({ checked: false })
       .where(eq(listIngredients.ingredient_id, id));
+    this.reloadListEvent.next();
   }
 }
