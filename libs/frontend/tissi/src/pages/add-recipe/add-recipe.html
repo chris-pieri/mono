@@ -1,0 +1,78 @@
+<div class="px-32 py-16">
+  <lib-button variant="outline" color="secondary" (clicked)="goBack()">
+    <ng-container icon-left>&larr;</ng-container>
+    Go Back
+  </lib-button>
+  <div class="px-4 sm:px-0 mt-6">
+    <h3 class="text-base/7 font-semibold">Add a Recipe</h3>
+    <p class="mt-1 max-w-2xl text-sm/6 text-gray-400">
+      <!-- Personal details and application. -->
+    </p>
+  </div>
+  <form [formGroup]="recipeForm" class="mt-6 border-t">
+    <dl class="divide-y">
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm/6 font-medium font-semibold">Name</dt>
+        <dd class="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">
+          <lib-input
+            placeholder="Name"
+            formControlName="recipeName"
+          ></lib-input>
+        </dd>
+      </div>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm/6 font-medium font-semibold">Description</dt>
+        <dd class="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">
+          <lib-input class="w-full" placeholder="Description"></lib-input>
+        </dd>
+      </div>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm/6 font-medium font-semibold">Ingredients</dt>
+        <dd class="mt-1 text-sm/6 text-gray-400 sm:col-span-2 sm:mt-0">
+          <div formArrayName="ingredients">
+            @for (ingredient of ingredients.controls; track
+            ingredient.get('id'); let i = $index) {
+            <div [formGroupName]="i" class="flex w-full gap-4 align-center">
+              <lib-input
+                class="flex-grow"
+                label="Ingredient"
+                formControlName="ingredientName"
+              ></lib-input>
+              <lib-input
+                class="basis-1/5"
+                label="Quantity"
+                type="number"
+                formControlName="ingredientQuantity"
+              ></lib-input>
+              <lib-select
+                class="basis-1/5"
+                label="Unit"
+                formControlName="ingredientUnit"
+                [options]="unitOptions"
+              ></lib-select>
+              <fieldset class="fieldset self-end">
+                <lib-button
+                  variant="outline"
+                  color="secondary"
+                  (clicked)="removeIngredient(i)"
+                  class="remove-button"
+                  >x</lib-button
+                >
+              </fieldset>
+            </div>
+            }
+          </div>
+          <lib-button
+            variant="outline"
+            color="secondary"
+            (clicked)="addIngredient()"
+          >
+            <ng-container icon-left><i>+</i></ng-container>
+            Add Ingredient
+          </lib-button>
+        </dd>
+      </div>
+    </dl>
+    <lib-button color="primary" (clicked)="submit()">Save Recipe</lib-button>
+  </form>
+</div>

@@ -2,9 +2,11 @@
   <div class="modal-box">
     <ng-content />
     <div class="modal-action">
+      @if (closeable()) {
       <lib-button variant="outline" color="secondary" (clicked)="handleClose()"
         >Close</lib-button
       >
+      }
       <ng-content select="[overlay-action]" />
     </div>
   </div>

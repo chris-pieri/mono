@@ -1,30 +1,22 @@
+import { Component, inject, output, signal } from '@angular/core';
 import {
-  Component,
-  inject,
-  model,
-  OnInit,
-  output,
-  signal,
-} from '@angular/core';
-import {
-  FormArray,
   FormBuilder,
   FormControl,
-  ReactiveFormsModule,
-  RequiredValidator,
   Validators,
+  FormArray,
+  ReactiveFormsModule,
 } from '@angular/forms';
-import { Input, Select, Button, Overlay } from '@mono/frontend/ui';
 import { NewRecipe, RecipeIngredient } from '@mono/types/tissi';
+import { Button, Select, Input } from '@mono/frontend/ui';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'lib-add-recipe',
-  imports: [Input, Select, ReactiveFormsModule, Button, Overlay],
+  selector: 'lib-add-recipe-v2',
+  imports: [Input, Select, ReactiveFormsModule, Button],
   templateUrl: './add-recipe.html',
   styleUrl: './add-recipe.css',
 })
 export class AddRecipe {
-  isOverlayOpen = model(false);
   submitted = output<NewRecipe>();
   protected readonly unitOptions = [
     'grams',
@@ -37,6 +29,7 @@ export class AddRecipe {
   ];
   private ingredientId = signal(0);
   private formBuilder = inject(FormBuilder);
+  private router = inject(Router);
 
   private createIngredientFormGroup() {
     this.ingredientId.update((id) => id + 1);
@@ -66,6 +59,10 @@ export class AddRecipe {
     this.ingredients.removeAt(index);
   }
 
+  goBack() {
+    this.router.navigate(['/']);
+  }
+
   submit() {
     console.log('Recipe Submitted:', this.recipeForm.value);
     const { recipeName, ingredients } = this.recipeForm.value;
@@ -83,11 +80,5 @@ export class AddRecipe {
       ingredients: mappedIngredients,
     };
     this.submitted.emit(newRecipe);
-  }
-
-  resetForm() {
-    this.recipeForm.reset();
-    this.ingredients.clear();
-    this.ingredients.push(this.createIngredientFormGroup());
   }
 }

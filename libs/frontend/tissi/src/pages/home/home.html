@@ -1,7 +1,11 @@
-<lib-add-recipe
-  (submitted)="createRecipe($event)"
-  [(isOverlayOpen)]="isOverlayOpen"
-></lib-add-recipe>
+<lib-overlay [open]="showDeleteOverlay()" [closeable]="false">
+  <h2>Are You Sure?</h2>
+  Are you sure you want to delete <b>{{ recipeToDelete()?.name }}</b>
+  <ng-container overlay-action>
+    <lib-button (clicked)="cancelDelete()" color="secondary" variant="outline">Cancel</lib-button>
+    <lib-button (clicked)="deleteRecipe()" color="error">Delete</lib-button>
+  </ng-container>
+</lib-overlay>
 <lib-golden-layout>
   <div main-header class="flex justify-between w-full">
     <lib-button variant="ghost">
@@ -28,11 +32,12 @@
         alt="Shoes"
       />
       <ng-container card-actions>
-        <lib-button color="secondary" variant="soft"> View Recipe </lib-button>
+        <lib-button color="secondary" variant="soft" size="sm">View</lib-button>
         @if (recipe.selected) {
         <lib-button
           color="tertiary"
           variant="outline"
+          size="sm"
           (clicked)="deselectRecipe(recipe.recipe_id)"
           >Remove from List</lib-button
         >
@@ -40,10 +45,16 @@
         <lib-button
           color="primary"
           variant="outline"
+          size="sm"
           (clicked)="selectRecipe(recipe.recipe_id)"
           >Add to List</lib-button
         >
         }
+        <lib-dropdown class="ml-auto" [items]="cardActions" align="right" [context]="recipe">
+        <lib-button variant="ghost" color="tertiary" size="sm">
+          <ng-container icon-left>&hellip;</ng-container>
+        </lib-button>
+        </lib-dropdown>
       </ng-container>
     </lib-card>
     } @empty {

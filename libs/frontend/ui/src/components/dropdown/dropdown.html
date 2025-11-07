@@ -1,0 +1,14 @@
+<div class="dropdown" [ngClass]="alignCssClass()">
+  <div tabindex="0" role="button">
+    <ng-content />
+  </div>
+  <ul
+    #dropdown
+    tabindex="-1"
+    class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-lg"
+  >
+    @for (item of items(); track $index) {
+    <li><button (click)="itemClicked(item)">{{item.label}}</button></li>
+    }
+  </ul>
+</div>

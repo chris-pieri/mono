@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, httpResource } from '@angular/common/http';
 import { NewRecipe, Recipe } from '@mono/types/tissi';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { catchError, first, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -48,5 +48,15 @@ export class RecipesService {
           return throwError(() => err);
         })
       );
+  }
+
+  private removeRecipe(id: string) {
+    this.recipes.update((recipes) => recipes.filter((r) => r.recipe_id !== id));
+  }
+
+  delete(id: string) {
+    return this.httpClient
+      .delete(`http://localhost:3000/api/recipes/${id}`)
+      .pipe(tap(() => this.removeRecipe(id)));
   }
 }

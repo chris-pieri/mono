@@ -2,6 +2,7 @@ import {
   Component,
   effect,
   ElementRef,
+  input,
   model,
   output,
   viewChild,
@@ -16,6 +17,7 @@ import { Button } from '../button/button';
 })
 export class Overlay {
   open = model(false);
+  closeable = input<boolean>(true);
   closed = output<void>();
   private dialogElement = viewChild<ElementRef<HTMLDialogElement>>('dialog');
 

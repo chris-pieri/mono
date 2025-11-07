@@ -1,5 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { AddRecipe } from '../../components/add-recipe/add-recipe';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import {
   GoldenLayout,
   Button,
@@ -8,16 +7,20 @@ import {
   ListItemCheckbox,
   ThemeSwitcher,
   GoldenLayoutService,
+  Dropdown,
+  DropdownItem,
+  Overlay,
 } from '@mono/frontend/ui';
 import { RecipesService } from '../../services/recipes.service';
 import { ListService } from '../../services/list.service';
 import { CommonModule } from '@angular/common';
 import { IngredientService } from '../../services/ingredients.service';
+import { Router } from '@angular/router';
+import { Recipe } from '@mono/types/tissi';
 
 @Component({
   selector: 'lib-home',
   imports: [
-    AddRecipe,
     GoldenLayout,
     Button,
     Card,
@@ -25,6 +28,8 @@ import { IngredientService } from '../../services/ingredients.service';
     ListItemCheckbox,
     ThemeSwitcher,
     CommonModule,
+    Dropdown,
+    Overlay,
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
@@ -33,6 +38,7 @@ export class Home {
   private recipesService = inject(RecipesService);
   private listService = inject(ListService);
   private ingredientsService = inject(IngredientService);
+  private router = inject(Router);
   ingredients = this.ingredientsService.ingredients;
   recipes = this.recipesService.recipes;
   list = this.listService.list;
@@ -42,13 +48,44 @@ export class Home {
 
   layoutService = inject(GoldenLayoutService);
 
+  recipeToDelete = signal<Recipe | null>(null);
+  showDeleteOverlay = computed(() => Boolean(this.recipeToDelete()));
+
+  cancelDelete() {
+    this.recipeToDelete.set(null);
+  }
+
+  deleteRecipe() {
+    const id = this.recipeToDelete()?.recipe_id;
+    if (id) {
+      this.recipesService.delete(id).subscribe({
+        next: () => this.recipeToDelete.set(null),
+      });
+    }
+  }
+
+  protected readonly cardActions: DropdownItem[] = [
+    {
+      label: 'Edit',
+      action: (recipe: Recipe) => console.log('edit clicked on', recipe),
+    },
+    {
+      label: 'Delete',
+      action: (recipe: Recipe) => {
+        this.recipeToDelete.set(recipe);
+        console.log('delete clicked on ', recipe);
+      },
+    },
+  ];
+
   toggleRightSidebar() {
     this.layoutService.toggleRightSidebar();
   }
 
   openOverlay() {
-    this.isOverlayOpen.set(true);
-    this.checkboxSelected.set(true);
+    this.router.navigate(['/add-recipe']);
+    // this.isOverlayOpen.set(true);
+    // this.checkboxSelected.set(true);
   }
 
   createRecipe(form: any) {

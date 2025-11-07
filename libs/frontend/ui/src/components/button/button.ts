@@ -8,8 +8,9 @@ import { NgClass } from '@angular/common';
   styleUrl: './button.css',
 })
 export class Button {
-  color = input<'primary' | 'secondary' | 'tertiary'>('primary');
+  color = input<'primary' | 'secondary' | 'tertiary' | 'error'>('primary');
   variant = input<'soft' | 'outline' | 'dash' | 'ghost'>();
+  size = input<'xs' | 'sm' | 'md' | 'lg' | 'xl'>('md');
   disabled = input<boolean>(false);
   clicked = output<void>();
 
@@ -21,6 +22,8 @@ export class Button {
         return 'btn-secondary';
       case 'tertiary':
         return 'btn-tertiary';
+      case 'error':
+        return 'btn-error';
       default:
         return 'btn-primary';
     }
@@ -41,6 +44,23 @@ export class Button {
     }
   });
 
+  private sizeCssClass = computed(() => {
+    switch (this.size()) {
+      case 'xs':
+        return 'btn-xs';
+      case 'sm':
+        return 'btn-sm';
+      case 'md':
+        return '';
+      case 'lg':
+        return 'btn-lg';
+      case 'xl':
+        return 'btn-xl';
+      default:
+        return '';
+    }
+  });
+
   private disabledCssClass = computed(() => {
     return this.disabled() ? 'btn-disabled' : '';
   });
@@ -50,6 +70,7 @@ export class Button {
       this.colorCssClass(),
       this.variantCssClass(),
       this.disabledCssClass(),
+      this.sizeCssClass(),
     ];
   });
 
