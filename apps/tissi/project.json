@@ -24,6 +24,9 @@
       },
       "configurations": {
         "production": {
+          "define": {
+            "API_URL": "\"https://tissi.chrispieri.com/api\""
+          },
           "budgets": [
             {
               "type": "initial",
@@ -39,6 +42,9 @@
           "outputHashing": "all"
         },
         "development": {
+          "define": {
+            "API_URL": "\"http://localhost:3000/api\""
+          },
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true

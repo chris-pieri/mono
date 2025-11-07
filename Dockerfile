@@ -27,6 +27,7 @@ ENTRYPOINT ["/sbin/tini", "--"]
 
 COPY --from=builder /tissi/dist/apps/tissi ./dist/apps/tissi
 COPY --from=builder /tissi/dist/apps/tissi-api ./
+COPY --from=builder /tissi/dist/libs/backend/tissi/drizzle/src/migrations ./libs/backend/tissi/drizzle/src/migrations
 
 # Prefer reproducible install; fall back to install if no lockfile
 RUN npm ci --prefer-offline --no-audit || npm install --no-audit

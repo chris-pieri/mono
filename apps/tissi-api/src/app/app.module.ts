@@ -9,7 +9,10 @@ import { join } from 'path';
 
 @Module({
   imports: [
-    DatabaseModule.register(schema),
+    DatabaseModule.register({
+      schema,
+      migrationsFolder: schema.drizzleConfig.out,
+    }),
     RecipesModule,
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'dist', 'apps', 'tissi', 'browser'),

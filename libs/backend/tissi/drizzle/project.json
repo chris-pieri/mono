@@ -4,5 +4,22 @@
   "sourceRoot": "libs/backend/tissi/drizzle/src",
   "projectType": "library",
   "tags": [],
-  "targets": {}
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/backend/tissi/drizzle",
+        "main": "libs/backend/tissi/drizzle/src/index.ts",
+        "tsConfig": "libs/backend/tissi/drizzle/tsconfig.lib.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "libs/backend/tissi/drizzle/src/migrations",
+            "output": "src/migrations"
+          }
+        ]
+      }
+    }
+  }
 }

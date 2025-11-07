@@ -1,13 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
 import { drizzle } from 'drizzle-orm/node-postgres';
+import { migrate } from 'drizzle-orm/node-postgres/migrator';
 
 export const DB = 'DB_CLIENT';
 
-const createDatabaseProvider = (schema: Record<string, any>): Provider => ({
+export interface DatabaseModuleOptions {
+  schema: Record<string, any>;
+  migrationsFolder?: string;
+}
+
+const createDatabaseProvider = (options: DatabaseModuleOptions): Provider => ({
   provide: DB,
-  useFactory: () => {
-    return drizzle({ connection: process.env.DATABASE_URL, schema });
+  useFactory: async () => {
+    const db = drizzle({ connection: process.env.DATABASE_URL, schema: options.schema });
+    if (options.migrationsFolder) {
+      console.log('🦆 Migrating Database...');
+      await migrate(db, { migrationsFolder: options.migrationsFolder });
+      console.log('✅ Database migrated');
+    }
+    return db;
   },
   inject: [],
 });
@@ -15,7 +27,7 @@ const createDatabaseProvider = (schema: Record<string, any>): Provider => ({
 @Global()
 @Module({})
 export class DatabaseModule {
-  static register(options: Record<string, any>): DynamicModule {
+  static register(options: DatabaseModuleOptions): DynamicModule {
     return {
       module: DatabaseModule,
       providers: [createDatabaseProvider(options)],

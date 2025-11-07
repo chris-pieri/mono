@@ -1,20 +1,20 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, httpResource } from '@angular/common/http';
 import { NewRecipe, Recipe } from '@mono/types/tissi';
-import { catchError, first, Observable, tap, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipesService {
   httpClient = inject(HttpClient);
-  recipes = httpResource<Recipe[]>(() => `http://localhost:3000/api/recipes`, {
+  recipes = httpResource<Recipe[]>(() => `${API_URL}/recipes`, {
     defaultValue: [],
   });
 
   create(recipe: NewRecipe) {
     return this.httpClient
-      .post<Recipe>('http://localhost:3000/api/recipes', recipe)
+      .post<Recipe>(`${API_URL}/recipes`, recipe)
       .pipe(tap((r) => this.recipes.update((recipes) => [...recipes, r])));
   }
 
@@ -29,7 +29,7 @@ export class RecipesService {
   select(id: string): Observable<void> {
     this.toggleRecipeSelection(id);
     return this.httpClient
-      .post<void>(`http://localhost:3000/api/recipes/select/${id}`, {})
+      .post<void>(`${API_URL}/recipes/select/${id}`, {})
       .pipe(
         catchError((err) => {
           this.toggleRecipeSelection(id);
@@ -41,7 +41,7 @@ export class RecipesService {
   deselect(id: string): Observable<void> {
     this.toggleRecipeSelection(id);
     return this.httpClient
-      .post<void>(`http://localhost:3000/api/recipes/deselect/${id}`, {})
+      .post<void>(`${API_URL}/recipes/recipes/deselect/${id}`, {})
       .pipe(
         catchError((err) => {
           this.toggleRecipeSelection(id);
@@ -56,7 +56,7 @@ export class RecipesService {
 
   delete(id: string) {
     return this.httpClient
-      .delete(`http://localhost:3000/api/recipes/${id}`)
+      .delete(`${API_URL}/recipes/recipes/${id}`)
       .pipe(tap(() => this.removeRecipe(id)));
   }
 }
