@@ -1,0 +1,32 @@
+# Node / package artifacts
+node_modules
+**/node_modules
+npm-debug.log*
+
+
+# Build output / caches
+dist
+dist/**
+coverage
+.cache
+# .nx
+# .nx/**
+tmp
+tmp/**
+
+# VCS / editor / OS
+.git
+.git/**
+.vscode
+.idea
+.DS_Store
+
+# Local env / secrets
+.env
+.env.* 
+.env.local
+
+# Misc
+logs
+*.log
+*.tgz

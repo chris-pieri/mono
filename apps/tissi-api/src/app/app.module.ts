@@ -4,9 +4,17 @@ import { AppService } from './app.service';
 import { RecipesModule } from '@mono/backend/tissi/recipes';
 import { DatabaseModule } from '@mono/backend/database';
 import * as schema from '@mono/backend/tissi/drizzle';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
-  imports: [DatabaseModule.register(schema), RecipesModule],
+  imports: [
+    DatabaseModule.register(schema),
+    RecipesModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'dist', 'apps', 'tissi', 'browser'),
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
