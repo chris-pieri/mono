@@ -11,6 +11,8 @@ RUN npm ci --prefer-offline --no-audit || npm install --no-audit
 # Copy source and build if a build script exists (non-fatal)
 COPY . .
 
+ENV NX_DAEMON=false
+
 RUN npx nx build tissi -c=production
 RUN npx nx build tissi-api -c=production
 

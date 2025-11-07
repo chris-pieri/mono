@@ -40,7 +40,7 @@ function parseList(list: ListItem[]): ListItem[] {
 })
 export class ListService {
   httpClient = inject(HttpClient);
-  list = httpResource<ListItem[]>(() => `http://localhost:3000/api/list`, {
+  list = httpResource<ListItem[]>(() => `${API_URL}/list`, {
     defaultValue: [],
     parse(value: any) {
       // Need to use any above otherwise throws error
@@ -49,7 +49,7 @@ export class ListService {
   });
 
   private listSse = new Observable((observer) => {
-    const url = 'http://localhost:3000/api/list/sse';
+    const url = `${API_URL}/list/sse`;
     const es = new EventSource(url);
 
     es.onmessage = ({ data }) => {
@@ -96,7 +96,7 @@ export class ListService {
   check(id: string): Observable<void> {
     this.toggleCheck(id);
     return this.httpClient
-      .post<void>(`http://localhost:3000/api/list/check/${id}`, {})
+      .post<void>(`${API_URL}/list/check/${id}`, {})
       .pipe(
         catchError((err) => {
           this.toggleCheck(id);
@@ -108,7 +108,7 @@ export class ListService {
   uncheck(id: string): Observable<void> {
     this.toggleCheck(id);
     return this.httpClient
-      .post<void>(`http://localhost:3000/api/list/uncheck/${id}`, {})
+      .post<void>(`${API_URL}/list/uncheck/${id}`, {})
       .pipe(
         catchError((err) => {
           this.toggleCheck(id);

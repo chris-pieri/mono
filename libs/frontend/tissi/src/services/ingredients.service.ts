@@ -5,5 +5,5 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class IngredientService {
-  ingredients = httpResource(() => `http://localhost:3000/api/ingredients`);
+  ingredients = httpResource(() => `${API_URL}/ingredients`);
 }

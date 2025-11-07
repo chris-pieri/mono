@@ -7,11 +7,13 @@ import * as schema from '@mono/backend/tissi/drizzle';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
+const migrationsFolder = 'libs/backend/tissi/drizzle/src/migrations';
+
 @Module({
   imports: [
     DatabaseModule.register({
       schema,
-      migrationsFolder: schema.drizzleConfig.out,
+      migrationsFolder,
     }),
     RecipesModule,
     ServeStaticModule.forRoot({
