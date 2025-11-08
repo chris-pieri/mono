@@ -1,0 +1,83 @@
+<div class="min-h-screen bg-gradient-to-br from-primary/10 via-base-100 to-secondary/10">
+  <!-- Theme Switcher -->
+  <div class="fixed top-6 right-6 z-50">
+    <lib-theme-switcher />
+  </div>
+
+  <!-- Hero Section -->
+  <div class="hero min-h-screen">
+    <div class="hero-content text-center">
+      <div class="max-w-4xl">
+        <!-- App Icon/Logo -->
+        <div class="mb-8">
+          <div class="inline-block p-6 bg-primary rounded-3xl shadow-2xl">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-primary-content" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          Tissi
+        </h1>
+
+        <!-- Tagline -->
+        <p class="text-3xl mb-4 font-semibold text-base-content">
+          Your Digital Recipe Book & Grocery List Manager
+        </p>
+
+        <!-- Description -->
+        <p class="text-xl mb-12 text-base-content/70 max-w-2xl mx-auto">
+          Store your favorite recipes, organize ingredients, and create grocery lists effortlessly.
+          Never forget an ingredient again.
+        </p>
+
+        <!-- CTA Button -->
+        <button (click)="goToHome()" class="btn btn-primary btn-lg gap-3 shadow-xl hover:shadow-2xl transition-all duration-300 text-lg px-8">
+          Get Started
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </button>
+
+        <!-- Features Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-20">
+          <!-- Recipe Storage -->
+          <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
+            <div class="card-body">
+              <div class="flex justify-center mb-4">
+                <div class="p-4 bg-primary/10 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+              </div>
+              <h2 class="card-title justify-center text-2xl">Store Recipes</h2>
+              <p class="text-center text-base-content/70">
+                Keep all your favorite recipes in one place. Add ingredients, instructions, and notes for easy reference.
+              </p>
+            </div>
+          </div>
+
+          <!-- Grocery Lists -->
+          <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
+            <div class="card-body">
+              <div class="flex justify-center mb-4">
+                <div class="p-4 bg-secondary/10 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                  </svg>
+                </div>
+              </div>
+              <h2 class="card-title justify-center text-2xl">Create Lists</h2>
+              <p class="text-center text-base-content/70">
+                Generate grocery lists from your recipes automatically. Never forget an ingredient at the store again.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,19 @@
 import { Route } from '@angular/router';
-import { AddRecipe, EditRecipe, Home, ViewRecipe } from '@mono/frontend/tissi';
+import {
+  AddRecipe,
+  EditRecipe,
+  Home,
+  LandingPage,
+  ViewRecipe,
+} from '@mono/frontend/tissi';
 
 export const appRoutes: Route[] = [
   {
     path: '',
+    component: LandingPage,
+  },
+  {
+    path: 'home',
     component: Home,
   },
   {
