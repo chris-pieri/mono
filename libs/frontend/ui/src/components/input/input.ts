@@ -23,8 +23,8 @@ export class Input implements ControlValueAccessor {
   note = input<string>('');
 
   // internal value + disabled state as signals
-  private value = signal<string | number>('');
-  private disabled = signal<boolean>(false);
+  protected value = signal<string | number>('');
+  protected disabled = signal<boolean>(false);
 
   // ControlValueAccessor callbacks
   private onChange: (v: any) => void = () => {};

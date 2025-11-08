@@ -1,8 +1,8 @@
 <fieldset class="fieldset">
   <p class="fieldset-legend">{{ label() }}</p>
-  <select class="select" (change)="handleSelect($event)" (blur)="markTouched()">
+  <select class="select" (change)="handleSelect($event)" (blur)="markTouched()" [value]="value()" [disabled]="disabled()">
     @for (option of options(); track $index) {
-    <option>{{ option }}</option>
+    <option [selected]="option === value()">{{ option }}</option>
     }
   </select>
   <span class="label">{{ notes() }}</span>

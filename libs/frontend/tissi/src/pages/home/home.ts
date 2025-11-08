@@ -67,7 +67,8 @@ export class Home {
   protected readonly cardActions: DropdownItem[] = [
     {
       label: 'Edit',
-      action: (recipe: Recipe) => console.log('edit clicked on', recipe),
+      action: (recipe: Recipe) =>
+        this.router.navigate([`edit-recipe/${recipe.recipe_id}`]),
     },
     {
       label: 'Delete',

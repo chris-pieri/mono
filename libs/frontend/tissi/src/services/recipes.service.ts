@@ -18,6 +18,18 @@ export class RecipesService {
       .pipe(tap((r) => this.recipes.update((recipes) => [...recipes, r])));
   }
 
+  update(id: string, recipe: NewRecipe) {
+    return this.httpClient
+      .put<Recipe>(`${API_URL}/recipes/${id}`, recipe)
+      .pipe(
+        tap((updatedRecipe) =>
+          this.recipes.update((recipes) =>
+            recipes.map((r) => (r.recipe_id === id ? updatedRecipe : r))
+          )
+        )
+      );
+  }
+
   private toggleRecipeSelection(id: string) {
     this.recipes.update((recipes) => {
       return recipes.map((r) =>
@@ -41,7 +53,7 @@ export class RecipesService {
   deselect(id: string): Observable<void> {
     this.toggleRecipeSelection(id);
     return this.httpClient
-      .post<void>(`${API_URL}/recipes/recipes/deselect/${id}`, {})
+      .post<void>(`${API_URL}/recipes/deselect/${id}`, {})
       .pipe(
         catchError((err) => {
           this.toggleRecipeSelection(id);
@@ -56,7 +68,7 @@ export class RecipesService {
 
   delete(id: string) {
     return this.httpClient
-      .delete(`${API_URL}/recipes/recipes/${id}`)
+      .delete(`${API_URL}/recipes/${id}`)
       .pipe(tap(() => this.removeRecipe(id)));
   }
 }

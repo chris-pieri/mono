@@ -1,4 +1,4 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,15 +9,15 @@ import {
 import { NewRecipe, RecipeIngredient } from '@mono/types/tissi';
 import { Button, Select, Input } from '@mono/frontend/ui';
 import { Router } from '@angular/router';
+import { RecipesService } from '../../services/recipes.service';
 
 @Component({
-  selector: 'lib-add-recipe-v2',
+  selector: 'lib-add-recipe',
   imports: [Input, Select, ReactiveFormsModule, Button],
   templateUrl: './add-recipe.html',
   styleUrl: './add-recipe.css',
 })
 export class AddRecipe {
-  submitted = output<NewRecipe>();
   protected readonly unitOptions = [
     'grams',
     'ml',
@@ -30,6 +30,7 @@ export class AddRecipe {
   private ingredientId = signal(0);
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
+  private recipesService = inject(RecipesService);
 
   private createIngredientFormGroup() {
     this.ingredientId.update((id) => id + 1);
@@ -79,6 +80,10 @@ export class AddRecipe {
       name: recipeName,
       ingredients: mappedIngredients,
     };
-    this.submitted.emit(newRecipe);
+    this.recipesService.create(newRecipe).subscribe({
+      next: () => {
+        this.goBack();
+      },
+    });
   }
 }

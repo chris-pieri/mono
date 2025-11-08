@@ -24,9 +24,12 @@ export class RecipesController {
     return await this.recipesService.create(recipe);
   }
 
-  @Put()
-  async updateRecipe(@Body() recipe: Recipe): Promise<Recipe | undefined> {
-    return await this.recipesService.update(recipe);
+  @Put('/:id')
+  async updateRecipe(
+    @Param('id') id: string,
+    @Body() recipe: Recipe
+  ): Promise<Recipe | undefined> {
+    return await this.recipesService.update(id, recipe);
   }
 
   @Delete('/:id')

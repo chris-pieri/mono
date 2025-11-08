@@ -22,8 +22,8 @@ export class Select implements ControlValueAccessor {
   options = input<string[]>();
 
   // internal value + disabled state as signals
-  private value = signal<string>('');
-  private disabled = signal<boolean>(false);
+  protected value = signal<string>('');
+  protected disabled = signal<boolean>(false);
 
   // ControlValueAccessor callbacks
   private onChange: (v: any) => void = () => {};

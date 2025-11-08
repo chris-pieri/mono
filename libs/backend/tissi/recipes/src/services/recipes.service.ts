@@ -91,9 +91,12 @@ export class RecipesService {
     return await this.getId(createdRecipe?.recipe_id || '');
   }
 
-  async update(recipe: Recipe): Promise<Recipe | undefined> {
+  async update(id: string, recipe: Recipe): Promise<Recipe | undefined> {
     await this.db.transaction(async (tx) => {
-      await tx.update(recipes).set(recipe);
+      await tx
+        .update(recipes)
+        .set({ name: recipe.name })
+        .where(eq(recipes.recipe_id, id));
 
       // Pass transaction
       const newIngredients = await this.ingredientsService.create(

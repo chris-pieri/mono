@@ -7,6 +7,8 @@
     (blur)="markTouched()"
     (input)="handleInput($event)"
     [type]="type()"
+    [value]="value()"
+    [disabled]="disabled()"
   />
   <p class="label">{{ note() }}</p>
 </fieldset>
