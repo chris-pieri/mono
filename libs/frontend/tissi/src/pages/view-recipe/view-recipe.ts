@@ -24,6 +24,6 @@ export class ViewRecipe {
   }
 
   goBack() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/home']);
   }
 }

@@ -89,7 +89,7 @@ export class EditRecipe {
   }
 
   goBack() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/home']);
   }
 
   submit() {

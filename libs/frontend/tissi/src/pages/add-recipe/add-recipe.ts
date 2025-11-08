@@ -61,7 +61,7 @@ export class AddRecipe {
   }
 
   goBack() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/home']);
   }
 
   submit() {
