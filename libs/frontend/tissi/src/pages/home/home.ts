@@ -89,6 +89,10 @@ export class Home {
     // this.checkboxSelected.set(true);
   }
 
+  viewRecipe(recipe: Recipe) {
+    this.router.navigate([`recipe/${recipe.recipe_id}`]);
+  }
+
   createRecipe(form: any) {
     this.recipesService.create(form).subscribe({
       next: () => {

@@ -32,7 +32,7 @@
         alt="Shoes"
       />
       <ng-container card-actions>
-        <lib-button color="secondary" variant="soft" size="sm">View</lib-button>
+        <lib-button color="secondary" variant="soft" size="sm" (clicked)="viewRecipe(recipe)">View</lib-button>
         @if (recipe.selected) {
         <lib-button
           color="tertiary"
