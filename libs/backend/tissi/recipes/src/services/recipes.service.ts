@@ -3,18 +3,18 @@ import {
   ingredients,
   recipeIngredients,
   recipes,
-  TissiDB,
 } from '@mono/backend/tissi/drizzle';
+import type { TissiDB } from '@mono/backend/tissi/drizzle';
 import { eq, getTableColumns, sql } from 'drizzle-orm';
 import type { NewRecipe, Recipe, RecipeIngredient } from '@mono/types/tissi';
-import { DB } from '@mono/backend/database';
 import { IngredientsService } from './ingredients.service';
 import { ListService } from './list.service';
+import { TISSI_DB } from '../constants/tissi-tokens';
 
 @Injectable()
 export class RecipesService {
   constructor(
-    @Inject(DB) private db: TissiDB,
+    @Inject(TISSI_DB) private db: TissiDB,
     private ingredientsService: IngredientsService,
     private listService: ListService
   ) {}

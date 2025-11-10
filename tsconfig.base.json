@@ -24,7 +24,9 @@
         "libs/backend/tissi/recipes/src/index.ts"
       ],
       "@mono/types/tissi": ["libs/types/tissi/src/index.ts"],
-      "@mono/backend/database": ["libs/backend/database/src/index.ts"]
+      "@mono/backend/database": ["libs/backend/database/src/index.ts"],
+      "@mono/backend/auth": ["libs/backend/auth/src/index.ts"],
+      "@mono/backend/users": ["libs/backend/users/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

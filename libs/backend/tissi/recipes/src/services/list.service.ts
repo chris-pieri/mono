@@ -1,19 +1,19 @@
-import { DB } from '@mono/backend/database';
 import {
   ingredients,
   listIngredients,
   listIngredientUnits,
   recipes,
-  TissiDB,
 } from '@mono/backend/tissi/drizzle';
+import type { TissiDB } from '@mono/backend/tissi/drizzle';
 import { Inject, Injectable } from '@nestjs/common';
 import { eq, sql } from 'drizzle-orm';
 import { Recipe } from '@mono/types/tissi';
 import { Subject } from 'rxjs';
+import { TISSI_DB } from '../constants/tissi-tokens';
 
 @Injectable()
 export class ListService {
-  constructor(@Inject(DB) private db: TissiDB) {}
+  constructor(@Inject(TISSI_DB) private db: TissiDB) {}
   reloadListEvent = new Subject<void>();
 
   // Need to pass selectedRecipes or else there is a circular dependency error

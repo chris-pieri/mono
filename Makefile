@@ -12,3 +12,7 @@ tissi-drop-migration:
 
 tissi-migrate:
 	npx drizzle-kit migrate --config libs/backend/tissi/drizzle/drizzle.config.ts
+
+auth-generate-migration:
+	npx @better-auth/cli@latest generate --config libs/backend/auth/auth.ts --output libs/backend/auth/src/schemas/index.ts
+	npx drizzle-kit generate --config libs/backend/auth/drizzle.config.ts
