@@ -1,0 +1,9 @@
+{
+  "name": "auth-drizzle",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/auth/drizzle/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project auth-drizzle --web",
+  "targets": {}
+}

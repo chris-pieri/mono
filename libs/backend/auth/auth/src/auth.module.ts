@@ -1,13 +1,13 @@
 import { Module, Provider } from '@nestjs/common';
 import { DatabaseModule } from '@mono/backend/database';
-import * as schema from '@mono/backend/auth';
+import * as schema from '@mono/backend/auth/drizzle';
 import { UsersController } from './controllers/users.controller';
 import { UsersService } from './services/users.service';
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { BETTER_AUTH, AUTH_DB } from './constants/auth-tokens';
 
-const migrationsFolder = 'libs/backend/auth/src/migrations';
+const migrationsFolder = 'libs/backend/auth/drizzle/src/migrations';
 
 const createAuthProvider: Provider = {
   provide: BETTER_AUTH,
@@ -33,4 +33,4 @@ const createAuthProvider: Provider = {
   providers: [createAuthProvider, UsersService],
   exports: [],
 })
-export class UsersModule {}
+export class AuthModule {}

@@ -4,12 +4,11 @@ import { AppService } from './app.service';
 import { RecipesModule } from '@mono/backend/tissi/recipes';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { UsersModule } from '@mono/backend/users';
-
+import { AuthModule } from '@mono/backend/auth';
 
 @Module({
   imports: [
-    UsersModule,
+    AuthModule,
     RecipesModule,
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'dist', 'apps', 'tissi', 'browser'),
