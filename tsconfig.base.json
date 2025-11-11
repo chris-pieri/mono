@@ -26,7 +26,9 @@
       "@mono/types/tissi": ["libs/types/tissi/src/index.ts"],
       "@mono/backend/database": ["libs/backend/database/src/index.ts"],
       "@mono/backend/auth/drizzle": ["libs/backend/auth/drizzle/src/index.ts"],
-      "@mono/backend/auth": ["libs/backend/auth/auth/src/index.ts"]
+      "@mono/backend/auth": ["libs/backend/auth/auth/src/index.ts"],
+      "@mono/frontend/auth": ["libs/frontend/auth/src/index.ts"],
+      "@mono/types/auth": ["libs/types/auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

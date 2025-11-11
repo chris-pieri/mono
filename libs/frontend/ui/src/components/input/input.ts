@@ -18,7 +18,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class Input implements ControlValueAccessor {
   label = input<string>('');
-  type = input<'text' | 'number'>('text');
+  type = input<'text' | 'number' | 'password' | 'email'>('text');
   placeholder = input<string>('');
   note = input<string>('');
 

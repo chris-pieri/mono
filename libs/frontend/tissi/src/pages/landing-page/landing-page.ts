@@ -11,6 +11,10 @@ import { ThemeSwitcher } from '@mono/frontend/ui';
 export class LandingPage {
   private router = inject(Router);
 
+  goToAuthorize() {
+    this.router.navigate(['/authorize']);
+  }
+
   goToHome() {
     this.router.navigate(['/home']);
   }

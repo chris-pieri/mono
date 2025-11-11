@@ -50,7 +50,7 @@ export class ListService {
 
   private listSse = new Observable((observer) => {
     const url = `${API_URL}/list/sse`;
-    const es = new EventSource(url);
+    const es = new EventSource(url, { withCredentials: true });
 
     es.onmessage = ({ data }) => {
       observer.next(data);
@@ -73,8 +73,10 @@ export class ListService {
           this.list.reload();
         },
         error: (err) => {
+          console.error(err);
           console.log('SSE Connection Closed - Reconnecting in 3 seconds');
-          setTimeout(() => subscribe(), 3000);
+          console.log('Skipping retry');
+          // setTimeout(() => subscribe(), 3000);
         },
       });
     };
@@ -95,25 +97,21 @@ export class ListService {
 
   check(id: string): Observable<void> {
     this.toggleCheck(id);
-    return this.httpClient
-      .post<void>(`${API_URL}/list/check/${id}`, {})
-      .pipe(
-        catchError((err) => {
-          this.toggleCheck(id);
-          return throwError(() => err);
-        })
-      );
+    return this.httpClient.post<void>(`${API_URL}/list/check/${id}`, {}).pipe(
+      catchError((err) => {
+        this.toggleCheck(id);
+        return throwError(() => err);
+      })
+    );
   }
 
   uncheck(id: string): Observable<void> {
     this.toggleCheck(id);
-    return this.httpClient
-      .post<void>(`${API_URL}/list/uncheck/${id}`, {})
-      .pipe(
-        catchError((err) => {
-          this.toggleCheck(id);
-          return throwError(() => err);
-        })
-      );
+    return this.httpClient.post<void>(`${API_URL}/list/uncheck/${id}`, {}).pipe(
+      catchError((err) => {
+        this.toggleCheck(id);
+        return throwError(() => err);
+      })
+    );
   }
 }

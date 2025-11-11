@@ -6,6 +6,7 @@ import { UsersService } from './services/users.service';
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { BETTER_AUTH, AUTH_DB } from './constants/auth-tokens';
+import { AuthModule as BetterAuthModule } from '@thallesp/nestjs-better-auth';
 
 const migrationsFolder = 'libs/backend/auth/drizzle/src/migrations';
 
@@ -28,9 +29,23 @@ const createAuthProvider: Provider = {
       migrationsFolder,
       token: AUTH_DB,
     }),
+    BetterAuthModule.forRootAsync({
+      inject: [AUTH_DB],
+      useFactory: (database: schema.AuthDB) => {
+        console.log('database - ', database);
+        const auth = betterAuth({
+          database: drizzleAdapter(database, {
+            provider: 'pg',
+            usePlural: true,
+          }),
+          ...schema.betterAuthConfig,
+        });
+        return { auth };
+      },
+    }),
   ],
-  controllers: [UsersController],
-  providers: [createAuthProvider, UsersService],
+  // controllers: [UsersController],
+  // providers: [createAuthProvider, UsersService],
   exports: [],
 })
 export class AuthModule {}

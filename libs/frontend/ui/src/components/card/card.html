@@ -5,6 +5,7 @@
   <div class="card-body">
     <h2 class="card-title">{{ title() }}</h2>
     <p>{{ description() }}</p>
+    <ng-content />
     <div class="card-actions gap-2">
       <ng-content select="[card-actions]" />
     </div>
