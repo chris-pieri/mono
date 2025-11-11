@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import { IngredientService } from '../../services/ingredients.service';
 import { Router } from '@angular/router';
 import { Recipe } from '@mono/types/tissi';
+import { UsersService } from '@mono/frontend/auth';
 
 @Component({
   selector: 'lib-home',
@@ -38,6 +39,7 @@ export class Home {
   private recipesService = inject(RecipesService);
   private listService = inject(ListService);
   private ingredientsService = inject(IngredientService);
+  private usersService = inject(UsersService);
   private router = inject(Router);
   ingredients = this.ingredientsService.ingredients;
   recipes = this.recipesService.recipes;
@@ -121,5 +123,9 @@ export class Home {
     } else {
       this.listService.check(item.ingredient_id).subscribe();
     }
+  }
+
+  signOut() {
+    this.usersService.signOut();
   }
 }

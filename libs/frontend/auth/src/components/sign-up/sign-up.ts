@@ -21,6 +21,7 @@ export class SignUp {
   protected signInForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
+    name: ['', Validators.required],
   });
 
   async onSignIn() {
@@ -33,8 +34,8 @@ export class SignUp {
     this.errorMessage.set(null);
 
     try {
-      const { email, password } = this.signInForm.getRawValue();
-      await this.usersService.signIn({ email, password });
+      const { email, password, name } = this.signInForm.getRawValue();
+      await this.usersService.signUp({ email, password, name });
       this.router.navigate(['/home']);
     } catch (error) {
       console.log('error resp', error);
@@ -46,10 +47,6 @@ export class SignUp {
     } finally {
       this.isLoading.set(false);
     }
-  }
-
-  signOut() {
-    this.usersService.signOut();
   }
 
   goBack() {

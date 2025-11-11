@@ -8,19 +8,16 @@
     <ng-container icon-left>&larr;</ng-container>
     Back
   </lib-button>
-  <lib-button
-    (clicked)="signOut()"
-    class="mb-4"
-    variant="outline"
-    color="secondary"
-  >
-    <ng-container icon-left>&larr;</ng-container>
-    Sign out
-  </lib-button>
+
   <lib-card
-    title="Sign In"
-    description="Welcome back! Please sign in to your account."
+    title="Sign Up"
+    description="Welcome! Please create a new account."
   >
+    @if (errorMessage()) {
+      <div class="alert alert-error">
+        <span>{{ errorMessage() }}</span>
+      </div>
+      }
     <form
       [formGroup]="signInForm"
       (ngSubmit)="onSignIn()"
@@ -52,17 +49,19 @@
         "
       />
 
-      @if (errorMessage()) {
-      <div class="alert alert-error">
-        <span>{{ errorMessage() }}</span>
-      </div>
-      }
+      <lib-input
+        formControlName="name"
+        label="Full Name"
+        placeholder="Enter your full name"
+      />
+
+ 
 
       <div card-actions class="justify-end mt-4">
         <lib-button type="submit" color="primary" [disabled]="isLoading()">
           @if (isLoading()) {
           <span class="loading loading-spinner loading-sm"></span>
-          Signing in... } @else { Sign In }
+          Signing Up... } @else { Sign Up }
         </lib-button>
       </div>
     </form>

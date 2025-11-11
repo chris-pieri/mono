@@ -74,13 +74,8 @@ export class UsersService {
   }
 
   async signOut() {
-    const token = this.session.value()?.session.token;
-    if (!token) {
-      return;
-    }
-    await this.auth.revokeSession({
-      token,
-    });
-    this.router.navigate(['/authorize']);
+    await this.auth.signOut();
+    this.session.reload();
+    this.router.navigate(['/sign-in']);
   }
 }

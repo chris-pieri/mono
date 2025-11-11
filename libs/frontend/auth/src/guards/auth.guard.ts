@@ -22,7 +22,7 @@ export const AuthGuard: CanActivateFn = (
       if (isAuthenticated) {
         return true;
       } else {
-        const authorizePath = router.parseUrl('/authorize');
+        const authorizePath = router.parseUrl('/sign-in');
         return new RedirectCommand(authorizePath);
       }
     })

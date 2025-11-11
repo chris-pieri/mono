@@ -6,7 +6,7 @@ import {
   LandingPage,
   ViewRecipe,
 } from '@mono/frontend/tissi';
-import { AuthGuard, SignIn } from '@mono/frontend/auth';
+import { AuthGuard, SignIn, SignUp } from '@mono/frontend/auth';
 
 export const appRoutes: Route[] = [
   {
@@ -14,8 +14,12 @@ export const appRoutes: Route[] = [
     component: LandingPage,
   },
   {
-    path: 'authorize',
+    path: 'sign-in',
     component: SignIn,
+  },
+  {
+    path: 'sign-up',
+    component: SignUp,
   },
   {
     path: 'home',
