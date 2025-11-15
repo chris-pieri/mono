@@ -8,3 +8,8 @@ export interface SignInOptions {
   email: string;
   password: string;
 }
+
+export interface MagicLinkSignInOptions {
+  email: string;
+  name: string;
+}

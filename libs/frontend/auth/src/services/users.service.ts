@@ -1,9 +1,16 @@
 import { inject, Injectable, resource, signal } from '@angular/core';
 import { createAuthClient } from 'better-auth/client';
-import { SignInOptions, SignUpOptions, User, Session } from '@mono/types/auth';
+import {
+  SignInOptions,
+  SignUpOptions,
+  User,
+  Session,
+  MagicLinkSignInOptions,
+} from '@mono/types/auth';
 import { Router } from '@angular/router';
 import { map, skipWhile, switchMap } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { magicLinkClient } from 'better-auth/client/plugins';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +18,7 @@ import { toObservable } from '@angular/core/rxjs-interop';
 export class UsersService {
   private auth = createAuthClient({
     baseURL: `${API_URL}/auth`,
+    plugins: [magicLinkClient()],
   });
   private router = inject(Router);
 
@@ -52,9 +60,23 @@ export class UsersService {
     if (error) {
       throw Error(error.message);
     } else {
+      await this.auth.sendVerificationEmail({ email });
       this.session.reload();
       // Need timeout because reload doesn't enter reload state immediately
       setTimeout(() => this.router.navigate(['/home']), 1);
+    }
+  }
+
+  async signInMagicLink({ email, name }: MagicLinkSignInOptions) {
+    const { data, error } = await this.auth.signIn.magicLink({
+      email,
+      name,
+      callbackURL: '/home',
+      newUserCallbackURL: '/home',
+      errorCallbackURL: '/error',
+    });
+    if (error) {
+      throw Error(error.message);
     }
   }
 
@@ -65,6 +87,12 @@ export class UsersService {
       rememberMe: false,
     });
     if (error) {
+      if (error.status === 403) {
+        await this.auth.sendVerificationEmail({
+          email,
+          callbackURL: '/home',
+        });
+      }
       throw Error(error.message);
     } else {
       this.session.reload();

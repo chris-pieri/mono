@@ -15,7 +15,6 @@
   >
     <form
       [formGroup]="signInForm"
-      (ngSubmit)="onSignIn()"
       class="flex flex-col gap-4"
     >
       <lib-input
@@ -51,10 +50,16 @@
       }
 
       <div card-actions class="justify-end mt-4">
-        <lib-button type="submit" color="primary" [disabled]="isLoading()">
+        <lib-button (clicked)="onSignIn()" color="primary" [disabled]="isLoading()">
           @if (isLoading()) {
           <span class="loading loading-spinner loading-sm"></span>
           Signing in... } @else { Sign In }
+        </lib-button>
+
+         <lib-button (clicked)="signInMagicLink()"  color="primary" [disabled]="isLoading()">
+          @if (isLoading()) {
+          <span class="loading loading-spinner loading-sm"></span>
+          Signing in... } @else { Magic Link Sign In }
         </lib-button>
       </div>
     </form>

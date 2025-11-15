@@ -50,6 +50,31 @@ export class SignIn {
     }
   }
 
+  async signInMagicLink() {
+    if (this.signInForm.invalid) {
+      this.signInForm.markAllAsTouched();
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    try {
+      const { email } = this.signInForm.getRawValue();
+      await this.usersService.signInMagicLink({ email, name: 'Test User' });
+      this.router.navigate(['/check-email']);
+    } catch (error) {
+      console.log('error resp', error);
+      this.errorMessage.set(
+        error instanceof Error
+          ? error.message
+          : 'An error occurred during sign in'
+      );
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
+
   signOut() {
     this.usersService.signOut();
   }
